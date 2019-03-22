@@ -45,10 +45,12 @@ class ModelInpaint():
 
         self.generator = torch.load( args.generator )
         self.generator.eval()
-        self.generator.cpu()
+        if not cuda:
+            self.generator.cpu()
         self.discriminator = torch.load( args.discriminator )
         self.discriminator.eval()
-        self.discriminator.cpu()
+        if not cuda:
+            self.discriminator.cpu()
 
     def create_weight_mask( self, unweighted_masks ):
         kernel = np.ones( ( self.n_size, self.n_size ),
@@ -103,7 +105,7 @@ class ModelInpaint():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            print(l_c, l_p)
+            print(l_c, l_p, loss)
 
         print( 'After optimizing: ' )
         print( z )
