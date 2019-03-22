@@ -8,7 +8,7 @@ import external.poissonblending as blending
 import numpy as np
 import pdb
 
-cuda = False if torch.cuda.is_available() else False
+cuda = True if torch.cuda.is_available() else False
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 class ContextLoss( nn.Module ):
